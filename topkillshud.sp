@@ -21,9 +21,13 @@ int trd;
 
 PlayerData playerdata[MAXPLAYERS + 1];
 
+// referesh rate of the text must match how long it's displayed for
+// or you will get new and old text overlapping
+#define TEXT_TIMER 0.6
+
 public void OnPluginStart()
 {
-	CreateTimer(0.3, Timer_PrintKillsHud, _, TIMER_REPEAT);
+	CreateTimer(TEXT_TIMER, Timer_PrintKillsHud, _, TIMER_REPEAT);
 
 
 	HookEvent("player_connect", Event_PlayerConnect);
@@ -154,7 +158,7 @@ public Action Timer_PrintKillsHud(Handle timer)
 	char buf[512];
 	Format(buf, sizeof(buf), "%s%s%s%s", buffer1, buffer2, buffer3, buffer4);
 	Handle hudText = CreateHudSynchronizer();
-	SetHudTextParams(0.15, -1.7, 0.6, 255, 255, 255, 255);
+	SetHudTextParams(0.15, -1.7, TEXT_TIMER, 255, 255, 255, 255);
 
 	for (int i = 1; i <= MaxClients; i++)
     {
