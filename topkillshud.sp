@@ -48,25 +48,21 @@ public void OnMapEnd()
 
 public Action Event_PlayerDisconnect(Event event, const char[] name, bool dontBroadcast)
 {
-	int client = GetEventInt(event, "userid");
+	int client = GetClientOfUserId(GetEventInt(event, "userid"));
 
 	playerdata[client].kills = 0;
 	if(client == fst)
 	{
-		playerdata[fst].kills = 0;
 		fst = 0;
 	}
 	if(client == snd)
 	{
-		playerdata[snd].kills = 0;
 		snd = 0;
 	}
 	if(client == trd)
 	{
-		playerdata[trd].kills = 0;
 		trd = 0;
 	}
-	//playerdata[client].name = "";
 }
 public Event_PlayerConnect(Event event, const char[] name, bool dontBroadcast)
 {
@@ -74,7 +70,6 @@ public Event_PlayerConnect(Event event, const char[] name, bool dontBroadcast)
 	if(!IsValidClient(client))
 		return;
 	playerdata[client].kills = 0;
-	//playerdata[client].name = clientname;
 }
 public Event_PlayerDeath(Handle:event, const String:name[], bool:dontBroadcast)
 {
